@@ -1,0 +1,15 @@
+# Use the official Node.js image as the base image
+FROM node:latest
+
+WORKDIR /front
+
+COPY ./package.json .
+COPY ./package-lock.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "dev-watch" ]
