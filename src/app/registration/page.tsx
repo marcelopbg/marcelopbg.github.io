@@ -7,8 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import RegistrationCheckoutModal from '../components/RegistrationCheckoutModal';
 
 const plans = [
-  { id: "Free", name: "Free / Demo", price: "0$", features: '5 questions per day' },
-  // { id: "Basic", name: "Basic Plan", price: "$5/month", features: '25 questions per day' },
+  { id: "Free", name: "Free / Demo", price: "0$", features: '10 questions per day' },
   { id: "Premium", name: "Premium Plan", price: "$10/month", features: 'Unlimited questions' },
 ];
 

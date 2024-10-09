@@ -157,7 +157,7 @@ const PlansPage: React.FC = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-4">Premium</h2>
               <p className="text-lg mb-4">Unlimited access to all questions.</p>
-              <p className="text-4xl font-bold text-green-500 mb-4">10$</p>
+              <p className="text-4xl font-bold text-green-500 mb-4">5$</p>
               <p className="text-gray-600 mb-8">Unlimited questions per day</p>
             </div>
             <button
