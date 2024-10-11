@@ -39,7 +39,7 @@ const VerifyEmail: React.FC = () => {
   }, [verificationCode]);
 
   return (
-    <div className="h-94 flex flex-col justify-center items-center bg-gray-100">
+    <div className="h-92 flex flex-col justify-center items-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-sm">
         <h1 className="text-2xl font-semibold mb-4">Email Verification</h1>
         <p className="text-lg">{message}</p>

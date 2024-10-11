@@ -104,8 +104,8 @@ const PlansPage: React.FC = () => {
   }, [loginContext.isLoggedIn]);
 
   return (
-    <div className="md:h-94 overflow-hidden flex flex-col items-center justify-center bg-gray-100">
-      <div className="bg-blue-500 p-8 rounded w-full md:w-auto flex items-center justify-center flex-col">
+    <div className="md:h-92 overflow-hidden flex flex-col items-center justify-center bg-gray-100">
+      <div className="bg-blue-500 p-8 md:rounded w-full md:w-auto flex items-center justify-center flex-col">
         {userPlanInfo && (
           <div className="bg-white p-4 rounded-lg shadow-lg text-center mb-6 w-full max-w-2xl">
             <h2 className="text-xl font-semibold">Your Current Plan</h2>

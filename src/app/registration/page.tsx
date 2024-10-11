@@ -8,7 +8,7 @@ import RegistrationCheckoutModal from '../components/RegistrationCheckoutModal';
 
 const plans = [
   { id: "Free", name: "Free / Demo", price: "0$", features: '10 questions per day' },
-  { id: "Premium", name: "Premium Plan", price: "$10/month", features: 'Unlimited questions' },
+  { id: "Premium", name: "Premium Plan", price: "$5/month", features: 'Unlimited questions' },
 ];
 
 const Signup: React.FC = () => {
@@ -88,7 +88,7 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-94 bg-gray-100 p-4">
+    <div className="flex justify-center items-center h-92 bg-gray-100 p-4">
       {/* Form Container */}
       <div className="w-full max-w-3xl p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-4 md:mb-6">Sign Up</h2>

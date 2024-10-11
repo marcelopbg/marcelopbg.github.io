@@ -49,7 +49,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-94 bg-gray-100">
+    <div className="flex justify-center items-center h-92 bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-6">

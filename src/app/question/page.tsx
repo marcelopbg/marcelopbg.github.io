@@ -178,7 +178,7 @@ const QuestionPage: React.FC = () => {
 
   return (
 
-    <div className="flex flex-col items-center h-94 bg-gray-100 pt-5">
+    <div className="flex flex-col items-center h-92 bg-gray-100 pt-5">
       {isLimitModalOpen && (
         <LimitExceededModal isOpen={isLimitModalOpen} onClose={closeLimitModal}></LimitExceededModal>
       )}
