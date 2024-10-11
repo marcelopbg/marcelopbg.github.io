@@ -44,7 +44,7 @@ const QuestionPage: React.FC = () => {
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [wasQuestionSubmitted, setWasQuestionSubmitted] = useState<boolean>(false);
-  const [performance, setPerformance] = useState<PerformanceResponse | null>(null);
+  // const [performance, setPerformance] = useState<PerformanceResponse | null>(null);
   const [selectedExams, setSelectedExams] = useState<{ value: string; label: string }[]>([]);
   const [isLimitModalOpen, setIsLimitModalOpen] = useState<boolean>(false);
 
@@ -56,35 +56,35 @@ const QuestionPage: React.FC = () => {
   const loadingAnswer = isLoading;
   const router = useRouter();
 
-  const fetchPerformance = async () => {
-    const token = localStorage.getItem("exam-prep-tk");
+  // const fetchPerformance = async () => {
+  //   const token = localStorage.getItem("exam-prep-tk");
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/performance`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  //   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/performance`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
 
-    const data: PerformanceResponse = await response.json();
-    setPerformance(data);
+  //   const data: PerformanceResponse = await response.json();
+  //   setPerformance(data);
 
-    if (!response.ok) {
-      if (response.status === 401) {
-        localStorage.removeItem("exam-prep-tk");
-        router.push('/login')
-        toast.error("Session expired. Please login again", toastErrorDefault);
-        return;
-      }
-      toast.error("Failed to load performance data", toastErrorDefault);
-    }
-  };
+  //   if (!response.ok) {
+  //     if (response.status === 401) {
+  //       localStorage.removeItem("exam-prep-tk");
+  //       router.push('/login')
+  //       toast.error("Session expired. Please login again", toastErrorDefault);
+  //       return;
+  //     }
+  //     toast.error("Failed to load performance data", toastErrorDefault);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchPerformance();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchPerformance();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const handleGenerateQuestion = async () => {
     showLoading();
@@ -118,6 +118,12 @@ const QuestionPage: React.FC = () => {
       }
     }
     if (!response.ok) {
+      if (response.status === 401) {
+        localStorage.removeItem("exam-prep-tk");
+        router.push('/login')
+        toast.error("Session expired. Please login again", toastErrorDefault);
+        return;
+      }
       const errorData = await response.json();
       console.error("Failed to fetch question", errorData);
       toast.error("Failed to generate a new question", toastErrorDefault);
@@ -267,14 +273,14 @@ const QuestionPage: React.FC = () => {
               {isCorrect ? "Correct!" : "Incorrect!"}
             </h3>
             <div className={`mt-4 p-4 rounded-md ${isCorrect ? 'bg-green-200' : 'bg-red-200'}`}>
-            <p className="text-gray-700">Correct {questionData!.correctAnswers?.length > 1 ? 'Answers:' : 'Answer:'} {questionData?.correctAnswers.join(', ')}</p>
+              <p className="text-gray-700">Correct {questionData!.correctAnswers?.length > 1 ? 'Answers:' : 'Answer:'} {questionData?.correctAnswers.join(', ')}</p>
               <p className="mt-2 text-gray-500">{questionData?.answerExplanation}</p>
             </div>
           </div>
-      )}
+        )}
       </div>
-      </div>
+    </div>
   )
 }
 
-      export default QuestionPage;
+export default QuestionPage;
