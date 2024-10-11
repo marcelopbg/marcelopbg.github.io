@@ -18,11 +18,10 @@ const NavBar: React.FC = () => {
   const isActive = (path: string) => activeTab === path;
 
   const navItemClasses = (path: string) => {
-    return `rounded-md px-3 py-2 text-sm font-medium w-full text-left ${
-      isActive(path)
+    return `rounded-md px-3 py-2 text-sm font-medium w-full text-left ${isActive(path)
         ? `bg-white text-blue-600 ${isMobileMenuOpen ? 'font-semibold' : ''} ` // Updated active link styles
         : "text-white hover:bg-blue-500 hover:text-white" // Default link styles
-    }`;
+      }`;
   };
 
   return (
@@ -77,6 +76,15 @@ const NavBar: React.FC = () => {
                     className={navItemClasses("/question")}
                   >
                     Questions
+                  </button>
+                  <button
+                    onClick={() => {
+                      router.push("/performance");
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={navItemClasses("/performance")}
+                  >
+                    Performance
                   </button>
                   <button
                     onClick={() => {
@@ -141,6 +149,15 @@ const NavBar: React.FC = () => {
                 Questions
               </button>
               <hr className="border-gray-400" /> {/* Separator */}
+              <button
+                onClick={() => {
+                  router.push("/performance");
+                  setIsMobileMenuOpen(false);
+                }}
+                className={navItemClasses("/performance")}
+              >
+                Performance
+              </button>
               <button
                 onClick={() => {
                   router.push("/plans");

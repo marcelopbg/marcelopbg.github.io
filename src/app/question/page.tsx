@@ -183,7 +183,7 @@ const QuestionPage: React.FC = () => {
         <LimitExceededModal isOpen={isLimitModalOpen} onClose={closeLimitModal}></LimitExceededModal>
       )}
       {/* Sleek Dashboard Performance Card */}
-      {performance && (performance.correctAnswers && performance.incorrectAnswers) && (
+      {/* {performance && (performance.correctAnswers && performance.incorrectAnswers) && (
         <div className="w-full max-w-2xl mb-4 p-2 bg-white rounded-xl shadow-md flex justify-between items-center space-x-4">
           <div className="w-1/2 p-4 text-center">
             <p className="text-sm font-semibold text-gray-500 uppercase">Correct Answers</p>
@@ -195,7 +195,7 @@ const QuestionPage: React.FC = () => {
             <p className="mt-1 text-3xl font-bold text-red-600">{performance.incorrectAnswers.length}</p>
           </div>
         </div>
-      )}
+      )} */}
 
       <div className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-lg">
         <h3 className="text-xl font-bold text-gray-900 mb-4"> Choose the Exam: </h3>
