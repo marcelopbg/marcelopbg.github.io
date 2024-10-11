@@ -1,11 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Select from "react-select";
-import { toast } from "react-hot-toast";
-import { toastErrorDefault, toastSuccessDefault } from "../common/toast-default-option";
 import { useRouter } from "next/navigation";
-import { useLoading } from "../context/LoadingContext";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+import Select from "react-select";
+import { toastErrorDefault, toastSuccessDefault } from "../common/toast-default-option";
 import LimitExceededModal from "../components/LimitExceededModal";
+import { useLoading } from "../context/LoadingContext";
 
 // Define the options for the exam selector
 const examOptions = [
@@ -33,10 +33,10 @@ interface QuestionResponse {
   answerExplanation: string;
 }
 
-interface PerformanceResponse {
-  correctAnswers: QuestionResponse[];
-  incorrectAnswers: QuestionResponse[];
-}
+// interface PerformanceResponse {
+//   correctAnswers: QuestionResponse[];
+//   incorrectAnswers: QuestionResponse[];
+// }
 
 const QuestionPage: React.FC = () => {
   const [questionData, setQuestionData] = useState<QuestionResponse | null>(null);
@@ -169,7 +169,7 @@ const QuestionPage: React.FC = () => {
       });
       setWasQuestionSubmitted(true);
       toast.success("Answer submitted successfully!", toastSuccessDefault);
-      await fetchPerformance();
+      // await fetchPerformance();
     } catch (error) {
       console.error("Failed to submit answer", error);
       toast.error("Failed to submit answer", toastErrorDefault);
