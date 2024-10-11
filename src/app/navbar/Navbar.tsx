@@ -158,6 +158,7 @@ const NavBar: React.FC = () => {
               >
                 Performance
               </button>
+              <hr className="border-gray-400" /> {/* Separator */}
               <button
                 onClick={() => {
                   router.push("/plans");
