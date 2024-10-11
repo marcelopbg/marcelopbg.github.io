@@ -136,7 +136,7 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-92 bg-gray-100 p-4">
+    <div className="flex justify-center items-center md:h-92 bg-gray-100 p-4">
       {/* Form Container */}
       <div className="w-full max-w-3xl p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-4 md:mb-6">Sign Up</h2>
@@ -197,7 +197,7 @@ const Signup: React.FC = () => {
               required
             />
             {/* Password Requirements */}
-            <div className="mt-2 text-sm text-gray-500">
+            <div className="mt-2 text-xs text-gray-500">
               <h4 className="font-semibold">Password Requirements:</h4>
               <ul className="list-disc pl-5">
                 <li>At least 8 characters long</li>

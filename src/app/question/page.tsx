@@ -178,13 +178,13 @@ const QuestionPage: React.FC = () => {
 
   return (
 
-    <div className="flex flex-col items-center h-92 bg-gray-100 pt-5">
+    <div className="flex flex-col items-center h-92 bg-gray-100 pt-2">
       {isLimitModalOpen && (
         <LimitExceededModal isOpen={isLimitModalOpen} onClose={closeLimitModal}></LimitExceededModal>
       )}
       {/* Sleek Dashboard Performance Card */}
       {performance && (performance.correctAnswers && performance.incorrectAnswers) && (
-        <div className="w-full max-w-2xl mb-6 p-6 bg-white rounded-xl shadow-md flex justify-between items-center space-x-4">
+        <div className="w-full max-w-2xl mb-4 p-2 bg-white rounded-xl shadow-md flex justify-between items-center space-x-4">
           <div className="w-1/2 p-4 text-center">
             <p className="text-sm font-semibold text-gray-500 uppercase">Correct Answers</p>
             <p className="mt-1 text-3xl font-bold text-green-600">{performance.correctAnswers.length}</p>
@@ -266,12 +266,15 @@ const QuestionPage: React.FC = () => {
             <h3 className={`text-lg font-bold ${isCorrect ? "text-green-600" : "text-red-600"}`}>
               {isCorrect ? "Correct!" : "Incorrect!"}
             </h3>
-            <p className="mt-2 text-gray-700">{questionData?.answerExplanation}</p>
+            <div className={`mt-4 p-4 rounded-md ${isCorrect ? 'bg-green-200' : 'bg-red-200'}`}>
+            <p className="text-gray-700">Correct {questionData!.correctAnswers?.length > 1 ? 'Answers:' : 'Answer:'} {questionData?.correctAnswers.join(', ')}</p>
+              <p className="mt-2 text-gray-500">{questionData?.answerExplanation}</p>
+            </div>
           </div>
-        )}
+      )}
       </div>
-    </div>
-  );
-};
+      </div>
+  )
+}
 
-export default QuestionPage;
+      export default QuestionPage;
