@@ -52,7 +52,7 @@ const LandingPage: React.FC = () => {
       </main>
 
       <footer className="bg-gray-200 py-6 text-center">
-        <p className="text-sm">© 2024 Your Company. All rights reserved.</p>
+        <p className="text-sm">© 2024 Force Mock Exams. All rights reserved.</p>
       </footer>
     </div>
   );
