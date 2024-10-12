@@ -1,65 +1,19 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { toastErrorDefault } from "../common/toast-default-option";
 import { useRouter } from "next/navigation";
-
-interface Choice {
-  id: number;
-  choiceLetter: string;
-  choiceText: string;
-  questionId: number;
-}
-
-interface QuestionResponse {
-  createdDate: Date;
-  id: number;
-  topic: string;
-  exam: string;
-  questionStem: string;
-  correctAnswers: string[];
-  answer: string[]; // This is the user's selected answers
-  choices: Choice[]; // Choices are objects with details
-  isCorrect: boolean;
-}
-
-interface PerformanceResponse {
-  correctAnswers: QuestionResponse[];
-  incorrectAnswers: QuestionResponse[];
-}
+import React, { useEffect, useState } from "react";
+import { usePerformance } from "../context/PerformanceContext";
+import { PerformanceResponse, QuestionResponse } from "../interfaces/interfaces";
 
 const PreviouslyAnsweredQuestionsPage: React.FC = () => {
   const [questions, setQuestions] = useState<QuestionResponse[]>([]);
   const router = useRouter();
+  const { getPerformance } = usePerformance();
 
   const fetchPreviouslyAnsweredQuestions = async () => {
-    const token = localStorage.getItem("exam-prep-tk");
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/performance`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      if (response.status === 401) {
-        localStorage.removeItem("exam-prep-tk");
-        router.push('/login');
-        toast.error("Session expired. Please login again", toastErrorDefault);
-        return;
-      }
-      toast.error("Failed to load previously answered questions", toastErrorDefault);
-      return;
-    }
-
-    const data: PerformanceResponse = await response.json();
-    // Combine correct and incorrect answers into a single questions array
-    const allQuestions = [...data.correctAnswers, ...data.incorrectAnswers].sort(
+    const data : PerformanceResponse | null = await getPerformance();
+    const allQuestions = [...data!.correctAnswers, ...data!.incorrectAnswers].sort(
       (a, b) => b.id - a.id
     );
-      
     setQuestions(allQuestions);
   };
 

@@ -6,6 +6,7 @@ import Select from "react-select";
 import { toastErrorDefault, toastSuccessDefault } from "../common/toast-default-option";
 import LimitExceededModal from "../components/LimitExceededModal";
 import { useLoading } from "../context/LoadingContext";
+import { usePerformance } from "../context/PerformanceContext";
 
 // Define the options for the exam selector
 const examOptions = [
@@ -25,12 +26,14 @@ interface Choice {
 interface QuestionResponse {
   id: number;
   topic: string;
+  createdDate: Date;
   exam: string;
   questionStem: string;
   choices: Choice[];
   isMultipleChoice: boolean;
   correctAnswers: string[];
   answerExplanation: string;
+  answer: string[];
 }
 
 // interface PerformanceResponse {
@@ -53,6 +56,9 @@ const QuestionPage: React.FC = () => {
   }
 
   const { showLoading, hideLoading, isLoading } = useLoading();
+
+  const { addAnswer } = usePerformance();
+
   const loadingAnswer = isLoading;
   const router = useRouter();
 
@@ -167,9 +173,11 @@ const QuestionPage: React.FC = () => {
         },
         body: JSON.stringify({ questionNumber: questionData.id, chosenOptions: selectedAnswers }),
       });
+      
+      const answer : QuestionResponse = { ...questionData, answer: selectedAnswers };
+      await addAnswer(answer);
       setWasQuestionSubmitted(true);
       toast.success("Answer submitted successfully!", toastSuccessDefault);
-      // await fetchPerformance();
     } catch (error) {
       console.error("Failed to submit answer", error);
       toast.error("Failed to submit answer", toastErrorDefault);

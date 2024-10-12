@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { LoadingProvider } from "./context/LoadingContext";
 import LoadingOverlay from "./components/LoadingOverlay";
 import { LoginProvider } from "./context/LoginContext";
+import { PerformanceProvider } from "./context/PerformanceContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,12 +38,15 @@ export default function RootLayout({
       >
         <LoginProvider>
           <LoadingProvider>
+            <PerformanceProvider>
+
             <Toaster />
             <Navbar />
             <LoadingOverlay />
             <Suspense>
               {children}
             </Suspense>
+            </PerformanceProvider>
           </LoadingProvider>
         </LoginProvider>
       </body>

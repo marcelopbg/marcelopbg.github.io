@@ -1,19 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { toastErrorDefault } from "../common/toast-default-option";
 import { useRouter } from "next/navigation";
-import { useLoading } from "../context/LoadingContext";
+import React, { useEffect, useState } from "react";
 import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    Tooltip,
     CartesianGrid,
     Legend,
+    Line,
+    LineChart,
     ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
 } from "recharts";
+import { usePerformance } from "../context/PerformanceContext";
 
 interface QuestionResponse {
     createdDate: Date;
@@ -33,12 +31,12 @@ interface PerformanceResponse {
 }
 
 const PerformancePage: React.FC = () => {
-    const [performance, setPerformance] = useState<PerformanceResponse | null>(null);
+    // const [performance, setPerformance] = useState<PerformanceResponse | null>(null);
     const [todayCorrectPercentage, setTodayCorrectPercentage] = useState<number | null>(null);
     const [weeklyCorrectPercentage, setWeeklyCorrectPercentage] = useState<number | null>(null);
     const [monthlyCorrectPercentage, setMonthlyCorrectPercentage] = useState<number | null>(null);
     const [chartData, setChartData] = useState<unknown[]>([]);
-    const { showLoading, hideLoading } = useLoading();
+    const { getPerformance } = usePerformance();
     const router = useRouter();
 
     const calculatePerformance = (performanceData: PerformanceResponse) => {
@@ -107,39 +105,46 @@ const PerformancePage: React.FC = () => {
         setChartData(data);
     };
 
-    const fetchPerformance = async () => {
-        const token = localStorage.getItem("exam-prep-tk");
+    // const fetchPerformance = async () => {
+    //     const token = localStorage.getItem("exam-prep-tk");
 
-        showLoading();
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/performance`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
+    //     showLoading();
+    //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/performance`, {
+    //         method: "GET",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ${token}`,
+    //         },
+    //     });
 
-        if (!response.ok) {
-            if (response.status === 401) {
-                localStorage.removeItem("exam-prep-tk");
-                router.push("/login");
-                toast.error("Session expired. Please login again", toastErrorDefault);
-            } else {
-                toast.error("Failed to load performance data", toastErrorDefault);
-            }
-            hideLoading();
-            return;
-        }
+    //     if (!response.ok) {
+    //         if (response.status === 401) {
+    //             localStorage.removeItem("exam-prep-tk");
+    //             router.push("/login");
+    //             toast.error("Session expired. Please login again", toastErrorDefault);
+    //         } else {
+    //             toast.error("Failed to load performance data", toastErrorDefault);
+    //         }
+    //         hideLoading();
+    //         return;
+    //     }
 
-        const data: PerformanceResponse = await response.json();
-        setPerformance(data);
-        calculatePerformance(data);
-        generateChartData(data);
-        hideLoading();
-    };
+    //     const data: PerformanceResponse = await response.json();
+    //     setPerformance(data);
+    //     calculatePerformance(data);
+    //     generateChartData(data);
+    //     hideLoading();
+    // };
+    const handlePerformance = async () => {
+        const data = await getPerformance();
+        if(data) {
+            calculatePerformance(data);
+            generateChartData(data);
+        }       
+    }
 
     useEffect(() => {
-        fetchPerformance();
+        handlePerformance();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -152,7 +157,6 @@ const PerformancePage: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center h-screen bg-gray-100 pt-2">
-            {performance && (
                 <>
                     <div className="w-full max-w-2xl mb-4 p-4 bg-white rounded-xl shadow-md">
                         <h3 className="text-lg font-bold mb-2">Performance Metrics</h3>
@@ -193,8 +197,6 @@ const PerformancePage: React.FC = () => {
                         </ResponsiveContainer>
                     </div>
                 </>
-            )}
-
             <div className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-lg">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Previously Answered Questions</h3>
                 <button
