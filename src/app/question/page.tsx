@@ -36,11 +36,6 @@ interface QuestionResponse {
   answer: string[];
 }
 
-// interface PerformanceResponse {
-//   correctAnswers: QuestionResponse[];
-//   incorrectAnswers: QuestionResponse[];
-// }
-
 const QuestionPage: React.FC = () => {
   const [questionData, setQuestionData] = useState<QuestionResponse | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
@@ -61,36 +56,6 @@ const QuestionPage: React.FC = () => {
 
   const loadingAnswer = isLoading;
   const router = useRouter();
-
-  // const fetchPerformance = async () => {
-  //   const token = localStorage.getItem("exam-prep-tk");
-
-  //   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/performance`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-
-  //   const data: PerformanceResponse = await response.json();
-  //   setPerformance(data);
-
-  //   if (!response.ok) {
-  //     if (response.status === 401) {
-  //       localStorage.removeItem("exam-prep-tk");
-  //       router.push('/login')
-  //       toast.error("Session expired. Please login again", toastErrorDefault);
-  //       return;
-  //     }
-  //     toast.error("Failed to load performance data", toastErrorDefault);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchPerformance();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   const handleGenerateQuestion = async () => {
     showLoading();
