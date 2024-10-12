@@ -7,6 +7,7 @@ import { toastErrorDefault, toastSuccessDefault } from "../common/toast-default-
 import LimitExceededModal from "../components/LimitExceededModal";
 import { useLoading } from "../context/LoadingContext";
 import { usePerformance } from "../context/PerformanceContext";
+import { QuestionResponse } from "../interfaces/interfaces";
 
 // Define the options for the exam selector
 const examOptions = [
@@ -18,23 +19,23 @@ const examOptions = [
   { value: 'Platform Developer II', label: 'Platform Developer II' },
 ];
 
-interface Choice {
-  choiceText: string;
-  choiceLetter: string;
-}
+// interface Choice {
+//   choiceText: string;
+//   choiceLetter: string;
+// }
 
-interface QuestionResponse {
-  id: number;
-  topic: string;
-  createdDate: Date;
-  exam: string;
-  questionStem: string;
-  choices: Choice[];
-  isMultipleChoice: boolean;
-  correctAnswers: string[];
-  answerExplanation: string;
-  answer: string[];
-}
+// interface QuestionResponse {
+//   id: number;
+//   topic: string;
+//   createdDate: Date;
+//   exam: string;
+//   questionStem: string;
+//   choices: Choice[];
+//   isMultipleChoice: boolean;
+//   correctAnswers: string[];
+//   answerExplanation: string;
+//   answer: string[];
+// }
 
 const QuestionPage: React.FC = () => {
   const [questionData, setQuestionData] = useState<QuestionResponse | null>(null);
