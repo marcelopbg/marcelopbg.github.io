@@ -94,6 +94,7 @@ const QuestionPage: React.FC = () => {
         localStorage.removeItem("exam-prep-tk");
         router.push('/login')
         toast.error("Session expired. Please login again", toastErrorDefault);
+        hideLoading();
         return;
       }
       const errorData = await response.json();
