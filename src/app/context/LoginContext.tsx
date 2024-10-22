@@ -3,6 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { toastSuccessDefault } from "../common/toast-default-option";
+import { jwtDecode } from "jwt-decode";
 
 interface LoginContextProps {
     isLoggedIn: boolean;
@@ -17,17 +18,30 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const router = useRouter();
     const pathname = usePathname();
 
-    // Check if the user is logged in by looking for the token in localStorage
+    const isTokenExpired = (token: string | null) => {
+      if (!token) return true; // Treat missing token as expired
+      try {
+        const { exp } = jwtDecode(token);
+        if (!exp) return true; // Treat tokens without expiration as expired
+        const now = Date.now() / 1000; // Current time in seconds
+        return exp < now; // Check if the token is expired
+      } catch (error) {
+        console.error("Invalid token", error);
+        return true; // Treat invalid token as expired
+      }
+    };
+    
     useEffect(() => {
-        const token = localStorage.getItem("exam-prep-tk");
-        setIsLoggedIn(!!token);
+      const token = localStorage.getItem("exam-prep-tk");
+      setIsLoggedIn(!!token && !isTokenExpired(token)); // Ensure boolean value is passed
     }, []);
-
-    // Update the logged-in state whenever the pathname changes
+    
     useEffect(() => {
-        const token = localStorage.getItem("exam-prep-tk");
-        setIsLoggedIn(!!token);
+      const token = localStorage.getItem("exam-prep-tk");
+      setIsLoggedIn(!!token && !isTokenExpired(token)); // Ensure boolean value is passed
     }, [pathname]);
+    
+
 
     const login = (token: string) => {
         localStorage.setItem("exam-prep-tk", token);
